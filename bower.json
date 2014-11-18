@@ -3,7 +3,7 @@
   "main": "ICanHaz.Controller.js",
   "version": "0.0.1",
   "homepage": "https://github.com/tonekk/ICanHaz.Controller",
-  "description": "Extendable ViewController for with mustache templating",
+  "description": "Extendable ViewController with mustache templating",
   "moduleType": [
     "globals"
   ],
