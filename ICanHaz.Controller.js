@@ -1,4 +1,14 @@
 (function($, ich) {
+
+  /*
+   * ICanHaz.Controller.js
+   *
+   * Usage:
+   * - https://github.com/tonekk/ICanHaz.Controller
+   *
+   * by Finn-Lennart Heemeyer, License: MIT
+   */
+
   ich.Controller = function(elementSelector) {
 
     var self = this;
@@ -16,7 +26,7 @@
           self = this;
 
       // Call parent constructor
-      ViewController.prototype.constructor.call(this, elementSelector);
+      ich.Controller.prototype.constructor.call(this, elementSelector);
 
       // Add methods and register events
       for(var key in obj) {
@@ -71,7 +81,7 @@
     };
 
     // Inherit
-    extendedController.prototype = Object.create(ViewController.prototype);
+    extendedController.prototype = Object.create(ich.Controller.prototype);
     extendedController.prototype.constructor = extendedController;
 
     return extendedController;
