@@ -23,7 +23,7 @@ ich.templateExtension = 'tpl';
 
 After having that set up, create a `ViewController` like this:
 
-```
+```javascript
 
 var MyViewController = ich.Controller.extend({
   init: function() {
@@ -46,13 +46,17 @@ var MyViewController = ich.Controller.extend({
   },
 
   '.select change': function() {
+    // SomeCode()
   },
 
   helper: function() {
+    // SomeCode()
   },
 
   afterInit: function() {
+    // SomeCode()
   }
+});
 
 ```
 
