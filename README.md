@@ -40,8 +40,9 @@ var MyViewController = ich.Controller.extend({
   },
 
   // Bind events with this readable, kick-ass syntax
-  '.btn click': function() {
+  '.btn click': function(el, e) {
     // 'this' refers to MyViewController, although this is an event
+    // 'el' refers to jQuery Element, 'e' to jQuery Event
     this.helper();
   },
 

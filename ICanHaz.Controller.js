@@ -50,8 +50,8 @@
 
             var handler = events[eventString];
 
-            self.element.find(selector).on(event, function() {
-              handler.call(self, this);
+            self.element.find(selector).on(event, function(e) {
+              handler.call(self, this, e);
             });
           })();
         }
