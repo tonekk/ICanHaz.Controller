@@ -36,7 +36,7 @@ var MyViewController = ich.Controller.extend({
     // Constructor, render element here
     self.element.render('templateName', templateData, function() {
       // Executed when template has loaded
-      self.afterInit();
+      // place DOM-related code here
     });
   },
 
