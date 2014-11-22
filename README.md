@@ -30,12 +30,12 @@ var MyViewController = ich.Controller.extend({
   init: function() {
 
     // Data for mustache template
-    var templateData = { foo: 'bar' },
-        self = this;
+    var templateData = { foo: 'bar' };
 
-    // Constructor, render element here
-    self.element.render('templateName', templateData, function() {
-      // Executed when template has loaded
+    // This method fetches the template file, constructs the template
+    // and registers the events below
+    this.element.render('templateName', templateData, function() {
+      // Executed when template and events are ready
       // place DOM-related code here
     });
   },
