@@ -5,6 +5,7 @@ ICanHaz.Controller
 
 Create client-side controllers with [mustache](http://mustache.github.io/)-views.
 Bind events with the easiest syntax available.
+Can also be used without a mustache template, see below.
 
 Based on [ICanHaz.js](http://icanhazjs.com/) / [ICanHaz.load](https://github.com/tonekk/ICanHaz.load).
 
@@ -42,24 +43,36 @@ var MyViewController = ich.Controller.extend({
   // Bind events with this readable, kick-ass syntax
   '.btn click': function(el, e) {
     // 'this' refers to MyViewController, although this is an event
-    // 'el' refers to jQuery Element, 'e' to jQuery Event
+    // 'el' refers to DOMElement, 'e' to jQuery Event
     this.helper();
   },
 
-  '.select change': function() {
-    // SomeCode()
-  },
-
   helper: function() {
-    // SomeCode()
-  },
-
-  afterInit: function() {
     // SomeCode()
   }
 });
 
 ```
+
+### Without mustache template
+
+You can also use `ICanHaz.Controller` to bind events on pre-rendered html.
+The only difference is that you won't have to call `this.element.render()` and you **must** implement `afterInit` instead of `init`, so that events are bound correctly:
+
+```javascript
+
+var MyViewController = ich.Controller.extend({
+  afterInit: function() {
+    // Events are already bound when this function is executed
+  },
+
+  '.select change': function(el, e) {
+    $(el).css('display', 'none');
+  }
+});
+
+```
+
 
 ## Installation
 
