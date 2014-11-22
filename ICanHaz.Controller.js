@@ -21,7 +21,7 @@
     // Constructor
     var extendedController = function(elementSelector) {
 
-      var events = [],
+      var events = {},
           eventsRegistered = false,
           self = this;
 
@@ -29,34 +29,38 @@
       ich.Controller.prototype.constructor.call(this, elementSelector);
 
       // Add methods and register events
-      for(var key in obj) {
-        if(obj.hasOwnProperty(key)) {
-          if(key.indexOf(' ') != -1) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (key.indexOf(' ') != -1) {
             events[key] = obj[key];
-          } else if(key !== 'init') {
+          } else if (key !== 'init') {
             this[key] = obj[key];
           }
         }
       }
 
       var registerEvents = function() {
-        for(var eventString in events) {
 
-          var splitted = eventString.split(' '),
-              selector = splitted[0],
-              event = splitted[1];
+        if (!eventsRegistered) {
 
-          (function() {
+          for (var eventString in events) {
 
-            var handler = events[eventString];
+            var splitted = eventString.split(' '),
+                selector = splitted[0],
+                event = splitted[1];
 
-            self.element.find(selector).on(event, function(e) {
-              handler.call(self, this, e);
-            });
-          })();
+            (function() {
+
+              var handler = events[eventString];
+
+              self.element.find(selector).on(event, function(e) {
+                handler.call(self, this, e);
+              });
+            })();
+          }
+
+          eventsRegistered = true;
         }
-
-        eventsRegistered = true;
       };
 
       // Put html inside our element and bind events
@@ -65,18 +69,24 @@
           self.element.html(content);
           registerEvents();
 
-          if(cb && typeof(cb) === 'function') {
+          if (cb && typeof(cb) === 'function') {
             cb();
           }
         });
       };
 
       // Execute init method
-      if(obj['init']) {
+      // init method is expected to call 'element.render()'
+      // to register events
+      if (obj['init'] && typeof(obj['init']) === 'function') {
         obj['init'].call(this);
-        if(!eventsRegistered) {
-          registerEvents();
-        }
+      }
+
+      // Execute afterInit method
+      if (obj['afterInit'] && typeof(obj['afterInit']) === 'function') {
+        // Register events before afterInit
+        registerEvents();
+        obj['afterInit'].call(this);
       }
     };
 
